@@ -153,6 +153,7 @@ header {
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     line-height: normal;
     width: 100%;
+    outline: none;
 }
 
 .search-block {
@@ -185,10 +186,43 @@ header {
 }
 
 
+/* .gpay-card-info-container {
+    background-color: #F5A62F !important;
+    position: relative !important;
+    min-width: 100% !important;
+} */
+
+
 /*============================= Main ===============================*/
 
 .content {
     padding: 0 30px;
+}
+
+.content .filter-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-button .filter-btn {
+    background-color: #F5A62F;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    transition: all 0.3s;
+}
+
+.filter-button .filter-btn:hover {
+    background-color: #cc8821;
+    color: rgb(216, 216, 216);
+}
+
+.content .filter-block .head-product-block {
+    margin: 0;
 }
 
 .card-grid-wrap {

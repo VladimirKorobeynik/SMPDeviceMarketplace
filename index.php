@@ -1,5 +1,5 @@
 <?php
-$array = [];
+$productArray = [];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -7,7 +7,7 @@ $array = [];
 <head>
 	<meta charset="utf-8">
 
-	<title>Nure Shop</title>
+	<title>Home Devices</title>
 	<link rel="shortcut icon" href="images/apple.png" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
@@ -78,7 +78,7 @@ $array = [];
 			</div>
 			<div class="search-block">
 				<div class="search-group">
-					<input id="search" name="search" placeholder="Search">
+					<input id="search" name="search" placeholder="Search" autocomplete="off">
 					<button class="search-btn" id="search-btn"><img src="images/search.png" alt="search"></button>
 				</div>
 			</div>
@@ -94,23 +94,45 @@ $array = [];
 		<div class="content">
 			<div class="filter-block">
 				<h1 id="head-product-block">Новые продукты</h1>
+				<div class="filter-button">
+					<form method="POST">
+						<button class="filter-btn add-cart" name="all">Все</button>
+						<button class="filter-btn add-cart" name="device">Устройства</button>
+						<button class="filter-btn add-cart" name="detector">Датчики</button>
+					</form>
+				</div>
 			</div>
 			<div class="card-grid-wrap">
 				<div class="card-grid" id="card-grid">
 					<?php
 					include 'Database.php';
 					include 'Product.php';
-					$productArray = [];
+					include 'Device.php';
+					include 'Detector.php';
 					$DB = new Database();
 					$result = $DB->sendQuery("SELECT * FROM `Products`");
-
 					$rows = mysqli_num_rows($result);
-					for ($i = 0; $i < $rows; $i++) {
-						$row = mysqli_fetch_row($result);
-						$productObj = new Product($row[0], $row[2], $row[3], $row[4], $row[5], $row[6]);
-						$productObj->outProduct($row[0], $row[2], $row[3], $row[4], $row[5], $row[6]);
+					function showProduct($result,$rows)
+					{
+						for ($i = 0; $i < $rows; $i++) {
+							$row = mysqli_fetch_row($result);
+							if ($row[1] == 1) {
+								$device = new Device($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], 'str', 'str');
+								$device->outProduct($row[0], $row[2], $row[3], $row[4], $row[5], $row[6]);
+								array_push($productArray, $device);
+							} else {
+								$detector = new Detector($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], 'str', 'str');
+								$detector->outProduct($row[0], $row[2], $row[3], $row[4], $row[5], $row[6]);
+								array_push($productArray, $detector);
+							}
+						}
 					}
-
+					showProduct($result,$rows);
+					if (isset($_POST['device'])) {
+						$row = mysqli_fetch_row($result);
+						$row[1] = 1;
+						showProduct($result, $rows);
+					}
 					?>
 				</div>
 				<div class="pagination" id="pagination">

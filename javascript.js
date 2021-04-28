@@ -44,20 +44,20 @@ window.onload = function() {
             preloader.classList.add('pageLoad')
 
             //Modal Window
-            for (let i = 0; i < newProduct.length; i++) {
-                let element = document.getElementsByClassName('add-cart')[i]
-                let modalCart = document.getElementById('modalProductContent')
-                let modalImage = document.getElementById('cartImage')
-                let cartPrice = document.getElementById('cartPrice')
-                element.addEventListener('click', function() {
-                    modalImage.innerHTML = newProduct[i].image
-                    modalCart.innerHTML = '<p class="cart-name">' + newProduct[i].name + '</p>'
-                    cartPrice.innerHTML = newProduct[i].price + '$'
-                    cartPrice2 = newProduct[i].price + '$'
-                    modalCart.innerHTML += '<p class="cart-instock">Осталось: ' + '<span>' + newProduct[i].inStock + 'шт. </span>' + '</p>'
-                    document.getElementById('modal').style.display = 'block'
-                })
-            }
+            // for (let i = 0; i < newProduct.length; i++) {
+            //     let element = document.getElementsByClassName('add-cart')[i]
+            //     let modalCart = document.getElementById('modalProductContent')
+            //     let modalImage = document.getElementById('cartImage')
+            //     let cartPrice = document.getElementById('cartPrice')
+            //     element.addEventListener('click', function() {
+            //         modalImage.innerHTML = newProduct[i].image
+            //         modalCart.innerHTML = '<p class="cart-name">' + newProduct[i].name + '</p>'
+            //         cartPrice.innerHTML = newProduct[i].price + '$'
+            //         cartPrice2 = newProduct[i].price + '$'
+            //         modalCart.innerHTML += '<p class="cart-instock">Осталось: ' + '<span>' + newProduct[i].inStock + 'шт. </span>' + '</p>'
+            //         document.getElementById('modal').style.display = 'block'
+            //     })
+            // }
         }
     }, 800)
 
