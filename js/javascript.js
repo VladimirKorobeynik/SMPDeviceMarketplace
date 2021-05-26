@@ -15,7 +15,7 @@ async function sendRequest(method, url, body = null) {
 
 
 let arrayFilterBtn = Array.from(document.getElementsByClassName('filter-btn'));
-sendRequest('GET', 'http://localhost/test.php')
+sendRequest('GET', 'http://localhost/web/test.php')
     .then(data => document.getElementById('card-grid').innerHTML = data)
     .catch(err => console.log(err));
 
@@ -23,17 +23,17 @@ arrayFilterBtn.forEach(element => {
     element.onclick = function() {
         switch (element.getAttribute('name')) {
             case 'all':
-                sendRequest('GET', 'http://localhost/test.php')
+                sendRequest('GET', 'http://localhost/web/test.php')
                     .then(data => document.getElementById('card-grid').innerHTML = data)
                     .catch(err => console.log(err));
                 break;
             case 'device':
-                sendRequest('GET', 'http://localhost/showDevice.php')
+                sendRequest('GET', 'http://localhost/web/showDevice.php')
                     .then(data => document.getElementById('card-grid').innerHTML = data)
                     .catch(err => console.log(err));
                 break;
             case 'detector':
-                sendRequest('GET', 'http://localhost/ShowDetector.php')
+                sendRequest('GET', 'http://localhost/web/ShowDetector.php')
                     .then(data => document.getElementById('card-grid').innerHTML = data)
                     .catch(err => console.log(err));
             default:
@@ -42,33 +42,8 @@ arrayFilterBtn.forEach(element => {
     }
 });
 
-sendRequest('GET', 'http://localhost/Session.php')
+sendRequest('GET', 'http://localhost/web/Session.php')
 
-// async function send() {
-//     let a = await sendRequest('GET', 'http://localhost/test.php');
-//     document.getElementById('card-grid').innerHTML = a;
-//     let productsArr = Array.from(document.getElementsByClassName('product-card'));
-// }
-
-
-// let form = document.getElementById("CloseButton");
-// console.log(form);
-// const data = {
-//     name: "ddasdada",
-//     count: 321,
-// }
-
-// form.addEventListener('click', evt => {
-//     evt.preventDefault();
-//     fetch('test.php', {
-//         method: 'POST',
-//         body: JSON.stringify(data),
-//     }).then(function(response) {
-//         console.log(response)
-//     }).catch(function(error) {
-//         console.log(error);
-//     });
-// })
 function getProduct(id) {
     const data = {
         id: id,
@@ -150,4 +125,13 @@ function hideModal(modal) {
     let overlay = document.querySelector('.modal_bg');
     modal.style.display = 'none';
     overlay.classList.remove('modal_bg_active');
+}
+
+//Clear modal 
+function clearField() {
+    let inputForm = document.getElementsByClassName('input_form');
+    for (let i = 0; i < inputForm.length; i++) {
+        inputForm[i].value = '';
+    }
+    document.getElementById('addFieldDescription').value = '';
 }

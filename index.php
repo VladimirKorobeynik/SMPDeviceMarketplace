@@ -9,7 +9,7 @@ $productArray = [];
 
 	<title>Home Devices</title>
 	<link rel="shortcut icon" href="images/apple.png" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="styles/style.css" />
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
 
 </head>
@@ -108,9 +108,8 @@ $productArray = [];
 			Copyright © 2077 <a href="#">E corp</a>
 		</div>
 	</footer>
-	<script src="database.js"></script>
-	<script src="jquery.js"></script>
-	<script src="javascript.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/javascript.js"></script>
 </body>
 
 </html>
