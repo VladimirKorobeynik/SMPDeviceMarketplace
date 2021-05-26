@@ -19,52 +19,42 @@ $productArray = [];
 		<div class="loader"></div>
 	</div>
 
-	<div class="modal" id="modal">
-		<div class="modal-content" id="modalContent">
-			<div class="success" id="success">
-				<p><span class="success-image"><img src="images/success.jpg"></span>Покупка успешна</p>
-			</div>
-			<span class="close" id="close" onclick="closeModal()">&times;</span>
-			<div class="modal-cart" id="modal-cart">
-				<div class="modal-head">
-					<h3>Корзина</h3>
+	<div class="modal_bg"></div>
+	<div class="modal addModal" id="addModal">
+		<div class="modal_head">
+			<h2>Добавить товар</h2>
+			<span class="close_icon"><img src="images/closeIconBlack.png" alt="X"></span>
+		</div>
+		<div class="modal_content">
+			<!-- <form> -->
+				<div class="field_block">
+					<label for="addFieldName">Название</label>
+					<input type="text" class="input_form" id="addFieldName" name="name">
 				</div>
-				<div class="modal-cart-content">
-					<div class="product-in-cart" id="productInCart">
-						<div class="cart-image" id="cartImage"></div>
-						<div class="modal-inner-wrap">
-							<div class="modal-product-content" id="modalProductContent"></div>
-							<div class="modal-checkout">
-								<p>Карта:</p>
-								<img class="bank-card" src="images/mastercard.png" id="mastercard" alt="card">
-								<img class="bank-card" src="images/visacard.png" id="visacard" alt="card-back">
-								<input class="card-field" id="bankInput" type="text" placeholder="Введите номер карты" onkeydown="return ( event.ctrlKey || event.altKey
-												|| (47<event.keyCode && event.keyCode<58 && event.shiftKey==false)
-											 	|| (95<event.keyCode && event.keyCode<106)
-												|| (event.keyCode==8) || (event.keyCode==9)
-												|| (event.keyCode>34 && event.keyCode<40)
-												|| (event.keyCode==46) )" maxlength="16">
-								<label for="Email">Почта:</label>
-								<input class="card-field" id="emailInput" type="email" name="Email" placeholder="Ваша почта">
-								<p>Выберите отделение новой почты:</p>
-								<div class="unit-delivery">
-									<label for="unit">Отделение №1</label>
-									<input type="radio" name="unit" id="adressbtn">
-									<label for="unit">Отделение №27</label>
-									<input id="adressbtn" name="unit" type="radio" required>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cart-btn">
-						<p class="cart-price" id="cart-price">Итого: <span id="cartPrice"></span></p>
-						<a class="btn" id="cart-btn">Оформить Заказ</a>
-					</div>
+				<div class="field_block">
+					<label for="addCategorie">Категория</label>
+					<input type="select" class="input_form" id="addFieldCategorie" name="categorie">
 				</div>
-			</div>
+				<div class="field_block">
+					<label for="addFieldCount">Количество</label>
+					<input type="number" min="0" class="input_form" id="addFieldCount" name="count">
+				</div>
+				<div class="field_block">
+					<label for="addFieldPrice">Цена</label>
+					<input type="number" min="1" class="input_form" id="addFieldPrice" name="price">
+				</div>
+				<div class="field_block">
+					<label for="addFieldPrice">Фото</label>
+					<input type="file" id="addFieldPhoto" name="photo">
+				</div>
+				<div class="field_block">
+					<label for="addFieldDescription">Описание</label>
+					<textarea type="text" id="addFieldDescription" name="description"></textarea>
+				</div>
+				<button class="filter-btn" id="addProductBtnSend">Добавить</button>
+			<!-- </form> -->
 		</div>
 	</div>
-
 	<header>
 		<div class="main-header-block">
 			<div class="logo">
@@ -95,45 +85,16 @@ $productArray = [];
 			<div class="filter-block">
 				<h1 id="head-product-block">Новые продукты</h1>
 				<div class="filter-button">
-					<form method="POST">
-						<button class="filter-btn add-cart" name="all">Все</button>
-						<button class="filter-btn add-cart" name="device">Устройства</button>
-						<button class="filter-btn add-cart" name="detector">Датчики</button>
-					</form>
+					<button class="filter-btn add-cart" name="all">Все</button>
+					<button class="filter-btn add-cart" name="device">Устройства</button>
+					<button class="filter-btn add-cart" name="detector">Датчики</button>
+				</div>
+				<div class="add_product_block">
+					<button class="filter-btn" id="addProductBtn">Добавить +</button>
 				</div>
 			</div>
-			<div class="card-grid-wrap">
+			<div class="card-grid-wrap" id="card-grid-wrap">
 				<div class="card-grid" id="card-grid">
-					<?php
-					include 'Database.php';
-					include 'Product.php';
-					include 'Device.php';
-					include 'Detector.php';
-					$DB = new Database();
-					$result = $DB->sendQuery("SELECT * FROM `Products`");
-					$rows = mysqli_num_rows($result);
-					function showProduct($result,$rows)
-					{
-						for ($i = 0; $i < $rows; $i++) {
-							$row = mysqli_fetch_row($result);
-							if ($row[1] == 1) {
-								$device = new Device($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], 'str', 'str');
-								$device->outProduct($row[0], $row[2], $row[3], $row[4], $row[5], $row[6]);
-								array_push($productArray, $device);
-							} else {
-								$detector = new Detector($row[0], $row[1], $row[2], $row[3], $row[4], $row[5], $row[6], 'str', 'str');
-								$detector->outProduct($row[0], $row[2], $row[3], $row[4], $row[5], $row[6]);
-								array_push($productArray, $detector);
-							}
-						}
-					}
-					showProduct($result,$rows);
-					if (isset($_POST['device'])) {
-						$row = mysqli_fetch_row($result);
-						$row[1] = 1;
-						showProduct($result, $rows);
-					}
-					?>
 				</div>
 				<div class="pagination" id="pagination">
 				</div>
@@ -148,6 +109,7 @@ $productArray = [];
 		</div>
 	</footer>
 	<script src="database.js"></script>
+	<script src="jquery.js"></script>
 	<script src="javascript.js"></script>
 </body>
 

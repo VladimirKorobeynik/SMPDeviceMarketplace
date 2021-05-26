@@ -32,11 +32,11 @@ class Product{
         $a = explode(" ", $description);
         $shortDescription = array_slice($a,0 ,20);
         $resultString = join(" ", $shortDescription) . "....";
-        echo "<div class='product-card'><div class='id-product'>$productID</div><div class='card-image'><a href='#'".
-        "id='productimage' onclick='checkProduct()'><img src='$image'/></a></div><div class='card-content'><h3 class='product-name' id='productname'>$name_of_product</h3>".
+        echo "<div class='product-card'><button class='delete-product-btn' onclick='getProduct($productID)'>X</button><div class='id-product'>$productID</div><div class='card-image'><a href='#'".
+        "id='productimage'><img src='$image'/></a></div><div class='card-content'><h3 class='product-name' id='productname'>$name_of_product</h3>".
         "$instock<div class='more' id='more'>$resultString</div><p class='product-price' id='product-price'>$cost_of_product грн</p>".
         "<div class='card-btn-block' id='paymantBlock'><a href='#' class='add-cart' id='add-cart'>Купить</a>".
-        "<a href='#' class='details' id='details' onclick='checkProduct()'>Подробнее</a></div></div></div>";
+        "<a href='#' class='details' id='details'>Подробнее</a></div></div></div>";
     }
 }
 

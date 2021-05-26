@@ -3,11 +3,10 @@
         public $connectionString;
 
         function sendQuery($query) {
-            $connectionString = new mysqli('localhost','root','root','HomeDevice');
+            $connectionString = new mysqli('localhost','root','root','homedevice');
             $result = $connectionString->query($query);
             $connectionString->close();
             return $result;
-            // ($this->checkInDataBase($result)) ? $result : null;
         }
         
         function checkInDataBase($object) {;
